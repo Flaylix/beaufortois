@@ -16,7 +16,7 @@ const {
 } = require('./services/brevo');
 
 const app = express();
-const PORT = Number(process.env.PORT || 3000);
+const PORT = process.env.PORT || 3000;
 
 // Client Supabase côté serveur avec la clé service_role.
 const supabase = createClient(
@@ -70,7 +70,7 @@ async function getParametres() {
     capacite_max: data?.capacite_max ?? 40,
     telephone_restaurant:
       data?.telephone_restaurant || process.env.RESTAURANT_PHONE || '',
-    email_restaurant: data?.email_restaurant || process.env.RESTAURANT_EMAIL || 'contact@beaufortois.fr',
+    email_restaurant: data?.email_restaurant || process.env.RESTAURANT_EMAIL || 'amandine.vanlande@orange.fr',
   };
 }
 
@@ -160,7 +160,7 @@ app.post('/api/reservation', async (req, res) => {
 
     // Maintenant data contient la réservation insérée
     await sendEmailClient(data);
-    await sendSmsRestaurant(data);
+    await sendSmsRestaurant(data, params.telephone_restaurant);
 
     res.json({ success: true });
   } catch (err) {
@@ -446,7 +446,7 @@ app.post('/api/menu-photo', authMiddleware, async (req, res) => {
 /**
  * Retourne toute la carte groupée par catégorie.
  */
-app.get('/api/carte', authMiddleware, async (req, res) => {
+app.get('/api/carte', async (req, res) => {
   try {
     const { data, error } = await supabase
       .from('carte')
@@ -543,19 +543,6 @@ app.get('/api/parametres', authMiddleware, async (req, res) => {
 
 // ── Démarrage ─────────────────────────────────────────────────
 
-function startServer(port) {
-  const server = app.listen(port, () => {
-    console.log(`Le Beaufortois — serveur sur http://localhost:${port}`);
-  });
-
-  server.on('error', (err) => {
-    if (err.code === 'EADDRINUSE' && port < PORT + 20) {
-      console.warn(`Port ${port} occupé — essai sur ${port + 1}`);
-      startServer(port + 1);
-    } else {
-      console.error('Erreur serveur :', err);
-    }
-  });
-}
-
-startServer(PORT);
+app.listen(PORT, () => {
+  console.log(`Le Beaufortois — serveur sur le port ${PORT}`);
+});

@@ -7,7 +7,7 @@ Application full-stack pour le restaurant Le Beaufortois : site vitrine, réserv
 - **Frontend** : HTML / CSS / JS vanilla (`index.html`)
 - **Backend** : Node.js + Express (`server.js`)
 - **Base de données** : Supabase (PostgreSQL)
-- **SMS** : Twilio
+- **Emails & SMS** : Brevo
 - **Déploiement** : Railway
 
 ## Installation locale
@@ -27,15 +27,13 @@ Ouvrir http://localhost:3000
 | `SUPABASE_URL` | URL du projet Supabase |
 | `SUPABASE_SERVICE_KEY` | Clé service_role (Settings → API) |
 | `BREVO_API_KEY` | Clé API Brevo (emails + SMS réservation) |
-| `RESTAURANT_EMAIL` | Email expéditeur Brevo (ex : contact@lebeaufortois.fr) |
+| `BREVO_SENDER_EMAIL` | Expéditeur Brevo vérifié (ex : leo0703ca@gmail.com) |
+| `RESTAURANT_EMAIL` | Email de contact du restaurant |
 | `RESTAURANT_NAME` | Nom affiché (emails et SMS) |
-| `RESTAURANT_PHONE` | Téléphone Amandine (SMS nouvelle résa via Brevo) |
-| `TWILIO_ACCOUNT_SID` | SID Twilio (SMS confirmation/annulation client) |
-| `TWILIO_AUTH_TOKEN` | Token Twilio |
-| `TWILIO_PHONE_NUMBER` | Numéro Twilio émetteur (format +33…) |
+| `RESTAURANT_PHONE` | Téléphone pour SMS nouvelle résa (format 06XXXXXXXX) |
 | `ADMIN_CODE` | Code PIN admin (défaut : 2503) |
 | `JWT_SECRET` | Secret pour signer les tokens admin |
-| `PORT` | Port du serveur (défaut : 3000) |
+| `PORT` | Défini automatiquement par Railway — ne pas ajouter |
 
 ## Supabase — Tables à créer
 
@@ -116,9 +114,26 @@ VALUES (40, '+33600000000');
 
 1. Créer un projet sur [railway.app](https://railway.app)
 2. Connecter ce dépôt GitHub
-3. Ajouter toutes les variables d'environnement du `.env`
-4. Railway détecte `npm start` automatiquement
-5. Le site sera accessible sur l'URL Railway générée
+3. **Variables** → **Raw Editor** → coller les variables (voir `.env.example`)
+4. Remplir les valeurs depuis ton fichier `.env` local
+5. Railway lance `npm start` automatiquement
+6. Générer un domaine public : **Settings** → **Networking** → **Generate Domain**
+
+### Variables à ajouter dans Railway
+
+```
+SUPABASE_URL
+SUPABASE_SERVICE_KEY
+BREVO_API_KEY
+BREVO_SENDER_EMAIL
+RESTAURANT_NAME
+RESTAURANT_EMAIL
+RESTAURANT_PHONE
+ADMIN_CODE
+JWT_SECRET
+```
+
+> Ne pas ajouter `PORT` — Railway le gère tout seul.
 
 ## Structure
 

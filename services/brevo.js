@@ -1,5 +1,12 @@
 const https = require('https');
 
+function getSender() {
+  return {
+    name: process.env.RESTAURANT_NAME || 'Le Beaufortois',
+    email: process.env.BREVO_SENDER_EMAIL || 'leo0703ca@gmail.com'
+  };
+}
+
 function brevoRequest(endpoint, body) {
   return new Promise((resolve, reject) => {
     const data = JSON.stringify(body);
@@ -32,7 +39,7 @@ async function sendEmailClient(reservation) {
   if (!reservation || !reservation.email) return;
   try {
     await brevoRequest('/v3/smtp/email', {
-      sender: { name: 'Le Beaufortois', email: 'leo0703ca@gmail.com' },
+      sender: getSender(),
       to: [{ email: reservation.email, name: reservation.nom }],
       subject: 'Votre demande de réservation — Le Beaufortois',
       htmlContent: `
@@ -135,7 +142,7 @@ async function sendEmailStatut(reservation, statut) {
   const confirme = statut === 'confirme';
   try {
     await brevoRequest('/v3/smtp/email', {
-      sender: { name: 'Le Beaufortois', email: 'leo0703ca@gmail.com' },
+      sender: getSender(),
       to: [{ email: reservation.email, name: reservation.nom }],
       subject: confirme ? 'Réservation confirmée — Le Beaufortois 🎉' : 'Réservation annulée — Le Beaufortois',
       htmlContent: confirme ? `
@@ -161,11 +168,10 @@ async function sendEmailStatut(reservation, statut) {
   } catch(e) { console.error('Erreur email statut:', e); }
 }
 
-async function sendSmsRestaurant(reservation) {
+async function sendSmsRestaurant(reservation, restaurantPhone) {
   if (!reservation) return;
-  const phone = process.env.RESTAURANT_PHONE
-    ? process.env.RESTAURANT_PHONE.replace(/\D/g, '')
-    : null;
+  const phone = (restaurantPhone || process.env.RESTAURANT_PHONE || '')
+    .replace(/\D/g, '');
   if (!phone) { console.log('SMS: pas de numéro configuré'); return; }
   try {
     await brevoRequest('/v3/transactionalSMS/sms', {
