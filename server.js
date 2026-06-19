@@ -9,13 +9,7 @@ const cors = require('cors');
 const path = require('path');
 const jwt = require('jsonwebtoken');
 const { createClient } = require('@supabase/supabase-js');
-const {
-  sendEmailClient,
-  sendEmailStatut,
-  sendSmsClient,
-  sendSmsClientStatut,
-  sendSmsRestaurant,
-} = require('./services/brevo');
+const { sendEmailClient, sendEmailStatut, sendSmsRestaurant } = require('./services/brevo');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -162,10 +156,16 @@ app.post('/api/reservation', async (req, res) => {
 
     // Maintenant data contient la réservation insérée
     await sendEmailClient(data);
-    await sendSmsClient(data);
-    await sendSmsRestaurant(data, params.telephone_restaurant);
+    const smsRestoPhone = process.env.RESTAURANT_PHONE || params.telephone_restaurant;
+    const smsRestoOk = await sendSmsRestaurant(data, smsRestoPhone);
 
-    res.json({ success: true });
+    res.json({
+      success: true,
+      notifications: {
+        email: !!data.email,
+        smsRestaurant: smsRestoOk,
+      },
+    });
   } catch (err) {
     console.error('POST /api/reservation :', err);
     res.status(500).json({ success: false, message: 'Erreur serveur' });
@@ -308,7 +308,6 @@ app.patch('/api/reservation/:id', authMiddleware, async (req, res) => {
     if (error) throw error;
 
     await sendEmailStatut(reservation, statut);
-    await sendSmsClientStatut(reservation, statut);
     res.json({ success: true });
   } catch (err) {
     console.error('PATCH /api/reservation/:id :', err);

@@ -277,9 +277,10 @@ function toE164(phone) {
 async function sendTransactionalSms(recipient, content, label) {
   if (!recipient) {
     console.log(`SMS ${label}: numero invalide`);
-    return;
+    return false;
   }
   try {
+    console.log(`SMS ${label} → ${recipient}`);
     const result = await brevoRequest('/v3/transactionalSMS/sms', {
       sender: 'Beaufortois',
       recipient,
@@ -287,42 +288,49 @@ async function sendTransactionalSms(recipient, content, label) {
     });
     if (result.status >= 400) {
       console.error(`SMS ${label} refusé (${result.status}):`, result.body);
+      if (result.status === 402) {
+        console.error('SMS Brevo : credits insuffisants — achetez des credits SMS sur https://app.brevo.com');
+      }
+      return false;
     }
+    console.log(`SMS ${label} envoye (${result.status})`);
+    return true;
   } catch (e) {
     console.error(`Erreur SMS ${label}:`, e);
+    return false;
   }
 }
 
 async function sendSmsClient(reservation) {
-  if (!reservation?.telephone) return;
+  if (!reservation?.telephone) return false;
   const recipient = toE164(reservation.telephone);
   const dateLabel = formatDateFr(reservation.date);
-  const persLabel = `${reservation.personnes} pers.`;
   const content =
-    `Le Beaufortois : demande de reservation recue pour ${dateLabel} a ${reservation.heure}, ${persLabel}. Nous vous confirmons tres bientot.`;
-  await sendTransactionalSms(recipient, content, 'client');
+    `Le Beaufortois : reservation recue le ${dateLabel} a ${reservation.heure}, ${reservation.personnes} pers. Confirmation sous peu.`;
+  return sendTransactionalSms(recipient, content, 'client');
 }
 
 async function sendSmsClientStatut(reservation, statut) {
-  if (!reservation?.telephone) return;
+  if (!reservation?.telephone) return false;
   const recipient = toE164(reservation.telephone);
   const confirme = statut === 'confirme';
-  const dateLabel = formatDateFr(reservation.date);
   const content = confirme
-    ? `Le Beaufortois : reservation confirmee ! ${dateLabel} a ${reservation.heure}, ${reservation.personnes} pers. A tres bientot !`
-    : `Le Beaufortois : votre reservation du ${dateLabel} a ${reservation.heure} a ete annulee.`;
-  await sendTransactionalSms(recipient, content, 'client-statut');
+    ? `Le Beaufortois : table confirmee le ${reservation.date} a ${reservation.heure}, ${reservation.personnes} pers. A bientot !`
+    : `Le Beaufortois : reservation annulee (${reservation.date} ${reservation.heure}).`;
+  return sendTransactionalSms(recipient, content, 'client-statut');
 }
 
 async function sendSmsRestaurant(reservation, restaurantPhone) {
-  if (!reservation) return;
-  const phone = (restaurantPhone || process.env.RESTAURANT_PHONE || '')
-    .replace(/\D/g, '');
-  if (!phone) { console.log('SMS: pas de numéro configuré'); return; }
+  if (!reservation) return false;
+  const phone = restaurantPhone || process.env.RESTAURANT_PHONE || '';
+  if (!phone) {
+    console.log('SMS restaurant: pas de numéro configuré (RESTAURANT_PHONE)');
+    return false;
+  }
   const recipient = toE164(phone);
   const content =
-    `Nouvelle resa: ${reservation.nom}, ${reservation.personnes} pers, ${reservation.date} a ${reservation.heure}. Tel: ${reservation.telephone}`;
-  await sendTransactionalSms(recipient, content, 'restaurant');
+    `Nouvelle resa ${reservation.nom}, ${reservation.personnes} pers, ${reservation.date} ${reservation.heure}. Tel ${reservation.telephone}`;
+  return sendTransactionalSms(recipient, content, 'restaurant');
 }
 
 module.exports = {

@@ -4,6 +4,10 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Le Beaufortois — Restaurant traditionnel français</title>
+<link rel="icon" type="image/png" sizes="32x32" href="/images/favicon/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/images/favicon/favicon-16x16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/images/favicon/apple-touch-icon.png">
+<link rel="shortcut icon" href="/favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
 <style>
@@ -1287,7 +1291,7 @@ body.dash-open{overflow:hidden}
     <div class="reveal">
       <p class="s-eyebrow">Réservation en ligne</p>
       <h2 class="s-title">Réservez <em>votre table</em></h2>
-      <p class="s-text">Remplissez le formulaire ci-dessous, vous recevrez une confirmation rapidement.</p>
+      <p class="s-text">Remplissez le formulaire ci-dessous. Vous recevrez un email de confirmation si vous indiquez votre adresse.</p>
     </div>
     <div class="reveal" id="formWrapper">
       <div class="form-grid">
@@ -1331,7 +1335,7 @@ body.dash-open{overflow:hidden}
     </div>
     <div class="form-success" id="formSuccess">
       <h3>Réservation reçue ! 🎉</h3>
-      <p>Merci pour votre demande. Nous vous confirmons votre table dans les plus brefs délais par téléphone ou email.</p>
+      <p id="formSuccessMsg">Merci pour votre demande. Un email de confirmation vous a été envoyé si vous avez indiqué votre adresse. Le restaurant vous recontactera par téléphone.</p>
     </div>
   </div>
 </section>
