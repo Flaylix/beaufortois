@@ -543,6 +543,6 @@ app.get('/api/parametres', authMiddleware, async (req, res) => {
 
 // ── Démarrage ─────────────────────────────────────────────────
 
-app.listen(PORT, () => {
-  console.log(`Le Beaufortois — serveur sur le port ${PORT}`);
+app.listen(PORT, '0.0.0.0', () => {
+  console.log(`Le Beaufortois — serveur sur le port ${PORT} (0.0.0.0)`);
 });
