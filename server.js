@@ -12,6 +12,8 @@ const { createClient } = require('@supabase/supabase-js');
 const {
   sendEmailClient,
   sendEmailStatut,
+  sendSmsClient,
+  sendSmsClientStatut,
   sendSmsRestaurant,
 } = require('./services/brevo');
 
@@ -160,6 +162,7 @@ app.post('/api/reservation', async (req, res) => {
 
     // Maintenant data contient la réservation insérée
     await sendEmailClient(data);
+    await sendSmsClient(data);
     await sendSmsRestaurant(data, params.telephone_restaurant);
 
     res.json({ success: true });
@@ -305,6 +308,7 @@ app.patch('/api/reservation/:id', authMiddleware, async (req, res) => {
     if (error) throw error;
 
     await sendEmailStatut(reservation, statut);
+    await sendSmsClientStatut(reservation, statut);
     res.json({ success: true });
   } catch (err) {
     console.error('PATCH /api/reservation/:id :', err);
