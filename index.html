@@ -759,35 +759,71 @@ body.dash-open{overflow:hidden}
 .dash-message{font-size:13px;color:var(--success);margin-top:10px;min-height:18px;font-weight:500}
 
 @media(max-width:768px){
+  #dashboard,#dashboard.open{flex-direction:column !important}
   #dashSidebar{
-    position:fixed;top:0;left:0;width:220px;min-width:220px;
-    height:100vh;transform:translateX(-100%);z-index:1001;
+    position:fixed;top:0;left:0;
+    width:min(280px,88vw);min-width:0;max-width:88vw;
+    height:100dvh;max-height:100dvh;
+    transform:translateX(-100%);z-index:1001;
     box-shadow:4px 0 24px rgba(0,0,0,.12);
+    padding-bottom:env(safe-area-inset-bottom,0);
   }
   #dashSidebar.open{transform:translateX(0)}
   #dashSidebarOverlay{display:none;position:fixed;inset:0;background:rgba(17,24,39,.4);z-index:1000}
   #dashSidebarOverlay.open{display:block;pointer-events:auto}
-  #dashMain{margin-left:0 !important;width:100% !important;left:0 !important}
-  #dashTopbar{left:0 !important}
-  .dash-section{margin-left:0 !important;padding:16px;padding-top:80px}
-  .dash-content{padding:0}
-  .dash-hamburger{display:block}
+  #dashMain{
+    margin-left:0 !important;width:100% !important;max-width:100% !important;
+    flex:1 1 auto !important;left:0 !important;min-width:0 !important;
+    height:100dvh;max-height:100dvh;
+  }
+  #dashTopbar{
+    left:0 !important;right:0 !important;width:100% !important;
+    padding:0 12px;gap:8px;height:56px;min-height:56px;
+  }
+  .dash-topbar-left{gap:8px;min-width:0}
+  .dash-topbar-title{font-size:15px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:42vw}
+  .dash-topbar-actions{gap:6px}
+  .dash-topbar-actions .dash-btn-secondary:not(.dash-quit-mobile){display:none}
+  .dash-topbar-btn{padding:8px 10px !important;font-size:10px !important;white-space:nowrap}
+  .dash-quit-mobile{display:inline-flex !important}
+  .dash-section{margin-left:0 !important;padding:12px;padding-top:72px;padding-bottom:max(16px, env(safe-area-inset-bottom))}
+  .dash-content{padding:0;width:100%;max-width:100%}
+  .dash-hamburger{display:block;flex-shrink:0}
   .dash-topbar-date{display:none}
-  .dash-topbar-actions .dash-btn-secondary{display:none}
-  .dash-stats{grid-template-columns:repeat(2,1fr)}
+  .dash-stats{grid-template-columns:1fr;gap:12px;width:100%}
+  .dash-stat-card{padding:16px}
   .dash-section-header{margin-bottom:16px}
-  .dash-content{padding:16px}
+  .dash-table-header{flex-direction:column;align-items:stretch;gap:12px}
+  .dash-table-tools{width:100%}
+  .dash-search{width:100%;max-width:100%}
+  .dash-toolbar{flex-direction:column;align-items:stretch}
+  .dash-toolbar .dash-btn-primary{width:100%;justify-content:center}
+  .dash-sidebar-footer{
+    padding:12px 16px max(16px, env(safe-area-inset-bottom));
+    flex-shrink:0;background:var(--surface);
+  }
+  .dash-quit{padding:12px;font-size:12px}
+  .dash-nav{max-width:100%;padding-bottom:8px}
   .dash-table thead{display:none}
   .dash-table tr{display:block;background:var(--surface);border:1px solid var(--border);border-radius:8px;margin-bottom:10px;padding:12px}
-  .dash-table td{display:flex;justify-content:space-between;padding:6px 0;border:none;font-size:13px}
-  .dash-table td::before{content:attr(data-label);color:var(--text-3);font-size:10px;letter-spacing:.5px;text-transform:uppercase;font-weight:600}
+  .dash-table td{display:flex;justify-content:space-between;gap:12px;padding:6px 0;border:none;font-size:13px;white-space:normal}
+  .dash-table td::before{content:attr(data-label);color:var(--text-3);font-size:10px;letter-spacing:.5px;text-transform:uppercase;font-weight:600;flex-shrink:0}
+  .dash-table td:last-child{flex-direction:column;align-items:stretch;gap:8px}
   .dash-table tbody tr:hover td{background:transparent}
   .dash-menu-grid,.dash-param-grid{grid-template-columns:1fr}
   .dash-add-form{grid-template-columns:1fr}
+  .dash-tabs{flex-wrap:nowrap;-webkit-overflow-scrolling:touch}
+  .dash-tab{padding:10px 14px;font-size:12px;white-space:nowrap}
+  .dash-card,.dash-table-card{padding:16px}
+  .dash-plat-row{flex-wrap:wrap;gap:8px}
+  .dash-sticky-save{text-align:stretch}
+  .dash-sticky-save .dash-btn-primary{width:100%}
 }
 @media(max-width:480px){
-  .dash-stats{grid-template-columns:1fr}
+  .dash-topbar-title{max-width:34vw}
+  .dash-topbar-btn{padding:8px 8px !important;font-size:9px !important}
 }
+.dash-quit-mobile{display:none !important;align-items:center}
 
 .about-img-placeholder,.gal-placeholder{
   background:linear-gradient(145deg,#2a2418,#1a1814);
@@ -1430,6 +1466,7 @@ body.dash-open{overflow:hidden}
         <span class="dash-topbar-date" id="dashTopbarDate"></span>
       </div>
       <div class="dash-topbar-actions">
+        <button class="dash-btn-secondary dash-quit-mobile" type="button" onclick="quitterDashboard()">← Site</button>
         <button class="dash-btn-secondary" type="button" onclick="showDashSection('reservations')">↗ Exporter</button>
         <button class="dash-btn-primary dash-topbar-btn" type="button" onclick="showDashSection('reservations')">+ Nouvelle réservation</button>
       </div>
@@ -2016,26 +2053,37 @@ const CARTE_INITIALE = [
   { categorie:'menus', nom:'Menu Poussins -10ans', description:'Nuggets + Frites + Salade + Dessert + Sirop', prix:'10,00€' },
 ];
 
+function applyDashboardLayout() {
+  const mobile = window.matchMedia('(max-width: 768px)').matches;
+  const dashboard = document.getElementById('dashboard');
+  const sidebar = document.getElementById('dashSidebar');
+  const main = document.getElementById('dashMain');
+  const topbar = document.getElementById('dashTopbar');
+
+  if (mobile) {
+    sidebar.style.cssText = '';
+    main.style.cssText = '';
+    if (topbar) topbar.style.cssText = '';
+    if (dashboard) dashboard.style.flexDirection = 'column';
+    closeSidebar();
+    return;
+  }
+
+  if (dashboard) dashboard.style.flexDirection = 'row';
+  sidebar.style.cssText = 'position:fixed!important;top:0!important;left:0!important;width:220px!important;height:100vh!important;background:#FFFFFF!important;border-right:1px solid #E5E7EB!important;display:flex!important;flex-direction:column!important;z-index:9999!important;overflow:hidden!important';
+  main.style.cssText = 'margin-left:220px!important;width:calc(100% - 220px)!important;max-width:calc(100% - 220px)!important;min-width:0!important;height:100vh!important;display:flex!important;flex-direction:column!important;overflow:hidden!important;background:#F9FAFB!important;flex:1 1 auto!important';
+  if (topbar) topbar.style.cssText = 'left:220px!important';
+}
+
 function openDashboard() {
-  // Cacher la navbar du site
   const nav = document.getElementById('nav');
   if (nav) nav.style.display = 'none';
 
-  // Afficher le dashboard
   const dashboard = document.getElementById('dashboard');
-  dashboard.style.cssText = 'display:flex !important;position:fixed !important;inset:0 !important;z-index:9998 !important;background:#F9FAFB !important;overflow:hidden !important;flex-direction:row !important';
+  dashboard.classList.add('open');
+  dashboard.style.cssText = 'display:flex!important;position:fixed!important;inset:0!important;z-index:9998!important;background:#F9FAFB!important;overflow:hidden!important';
 
-  // Forcer la sidebar
-  const sidebar = document.getElementById('dashSidebar');
-  sidebar.style.cssText = 'position:fixed !important;top:0 !important;left:0 !important;width:220px !important;height:100vh !important;background:#FFFFFF !important;border-right:1px solid #E5E7EB !important;display:flex !important;flex-direction:column !important;z-index:9999 !important;overflow:hidden !important';
-
-  // Forcer le contenu principal
-  const main = document.getElementById('dashMain');
-  const mainLeft = window.innerWidth < 768 ? '0' : '220px';
-  main.style.cssText = `position:fixed !important;top:0 !important;left:${mainLeft} !important;right:0 !important;bottom:0 !important;overflow:hidden !important;background:#F9FAFB !important;z-index:9998 !important;display:flex !important;flex-direction:column !important`;
-
-  const topbar = document.getElementById('dashTopbar');
-  if (topbar) topbar.style.cssText = '';
+  applyDashboardLayout();
 
   const allNavItems = document.querySelectorAll('.dash-nav-item');
   allNavItems.forEach(item => {
@@ -2492,6 +2540,11 @@ document.getElementById('btnChangePin').onclick = () => {
 
 document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('dashSidebarOverlay').onclick = closeSidebar;
+  window.addEventListener('resize', () => {
+    if (document.getElementById('dashboard').classList.contains('open')) {
+      applyDashboardLayout();
+    }
+  });
   loadCartePublic();
 });
 </script>
