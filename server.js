@@ -157,6 +157,7 @@ app.post('/api/reservation', async (req, res) => {
     // Maintenant data contient la réservation insérée
     await sendEmailClient(data);
     const smsRestoPhone = process.env.RESTAURANT_PHONE || params.telephone_restaurant;
+    console.log(`SMS restaurant cible: ${smsRestoPhone} (env: ${process.env.RESTAURANT_PHONE || 'non defini'})`);
     const smsRestoOk = await sendSmsRestaurant(data, smsRestoPhone);
 
     res.json({
