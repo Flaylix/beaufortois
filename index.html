@@ -374,6 +374,11 @@ footer{
   display:flex;justify-content:space-between;align-items:center;
 }
 .footer-copy{font-size:11px;color:rgba(245,240,232,.3);letter-spacing:1px}
+.footer-legal{
+  font-size:11px;color:rgba(245,240,232,.4);letter-spacing:1px;
+  text-decoration:none;transition:color .2s;
+}
+.footer-legal:hover{color:var(--or)}
 
 /* ── ANIMATIONS ── */
 @keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
@@ -1372,6 +1377,7 @@ body.dash-open{overflow:hidden}
   </div>
   <div class="footer-bottom">
     <div class="footer-copy">© 2025 Le Beaufortois — Tous droits réservés</div>
+    <a href="/mentions-legales.html" class="footer-legal">Mentions légales</a>
     <div class="footer-copy">Cuisine française traditionnelle</div>
     <div class="footer-copy">
       <span id="adminBtn" onclick="openAdmin()" style="cursor:pointer;opacity:0.25;font-size:10px;letter-spacing:1px;transition:opacity .2s;color:inherit" onmouseover="this.style.opacity='.6'" onmouseout="this.style.opacity='.25'">Admin</span>

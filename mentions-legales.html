@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mentions légales — Le Beaufortois</title>
+<link rel="icon" type="image/png" sizes="32x32" href="/images/favicon/favicon-32x32.png">
+<link rel="shortcut icon" href="/favicon.png">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --rouge:      #B5292E;
+    --rouge-fonce:#8C1F23;
+    --noir:       #1A1A1A;
+    --gris:       #6B6B6B;
+    --gris-clair: #F4F1EE;
+    --blanc:      #FFFFFF;
+    --border:     #E5DFD9;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--gris-clair);
+    color: var(--noir);
+    line-height: 1.6;
+  }
+
+  .top-bar {
+    background: var(--rouge);
+    padding: 18px 5%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .logo {
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    font-size: 22px;
+    color: var(--blanc);
+    letter-spacing: 1px;
+    text-decoration: none;
+  }
+
+  .back-link {
+    color: var(--blanc);
+    font-size: 13px;
+    text-decoration: none;
+    font-weight: 500;
+    opacity: .9;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .back-link:hover { opacity: 1; }
+
+  .hero {
+    background: var(--noir);
+    padding: 60px 5% 50px;
+    text-align: center;
+  }
+
+  .hero-eyebrow {
+    color: var(--rouge);
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 12px;
+  }
+
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(28px, 4vw, 42px);
+    color: var(--blanc);
+    font-weight: 600;
+  }
+
+  .content {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 60px 5% 100px;
+  }
+
+  .section { margin-bottom: 44px; }
+
+  .section-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--rouge);
+    letter-spacing: 1px;
+    margin-bottom: 6px;
+    display: block;
+  }
+
+  .section h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 24px;
+    font-weight: 600;
+    color: var(--noir);
+    margin-bottom: 16px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .section p {
+    color: #333;
+    font-size: 15px;
+    margin-bottom: 12px;
+  }
+
+  .section p.muted {
+    color: var(--gris);
+    font-size: 13px;
+  }
+
+  .info-card {
+    background: var(--blanc);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 24px 28px;
+    margin-top: 18px;
+  }
+
+  .info-row {
+    display: flex;
+    gap: 8px;
+    padding: 8px 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 14px;
+  }
+
+  .info-row:last-child { border-bottom: none; }
+
+  .info-label {
+    color: var(--gris);
+    min-width: 180px;
+    flex-shrink: 0;
+  }
+
+  .info-value {
+    color: var(--noir);
+    font-weight: 500;
+  }
+
+  a.inline-link {
+    color: var(--rouge);
+    text-decoration: underline;
+  }
+
+  ul.legal-list {
+    margin: 12px 0 12px 20px;
+    color: #333;
+    font-size: 15px;
+  }
+
+  ul.legal-list li { margin-bottom: 8px; }
+
+  footer {
+    background: var(--noir);
+    color: #999;
+    text-align: center;
+    padding: 28px 5%;
+    font-size: 13px;
+  }
+
+  footer a {
+    color: var(--rouge);
+    text-decoration: none;
+  }
+
+  @media (max-width: 600px) {
+    .info-row { flex-direction: column; gap: 2px; }
+    .info-label { min-width: 0; }
+  }
+</style>
+</head>
+<body>
+
+<div class="top-bar">
+  <a href="/" class="logo">LE BEAUFORTOIS</a>
+  <a href="/" class="back-link">← Retour au site</a>
+</div>
+
+<div class="hero">
+  <div class="hero-eyebrow">Informations légales</div>
+  <h1>Mentions légales</h1>
+</div>
+
+<div class="content">
+
+  <div class="section">
+    <span class="section-num">01</span>
+    <h2>Éditeur du site</h2>
+    <p>Le présent site est édité par :</p>
+    <div class="info-card">
+      <div class="info-row">
+        <span class="info-label">Nom / Raison sociale</span>
+        <span class="info-value">VANLANDE Amandine (Le Beaufortois)</span>
+      </div>
+      <div class="info-row">
+        <span class="info-label">Forme juridique</span>
+        <span class="info-value">Entrepreneur individuel</span>
+      </div>
+      <div class="info-row">
+        <span class="info-label">SIREN</span>
+        <span class="info-value">500 765 565</span>
+      </div>
+      <div class="info-row">
+        <span class="info-label">SIRET (siège)</span>
+        <span class="info-value">500 765 565 00014</span>
+      </div>
+      <div class="info-row">
+        <span class="info-label">Numéro de TVA</span>
+        <span class="info-value">FR89500765565</span>
+      </div>
+      <div class="info-row">
+        <span class="info-label">RCS</span>
+        <span class="info-value">500 765 565 R.C.S. Grenoble</span>
+      </div>
+      <div class="info-row">
+        <span class="info-label">Adresse</span>
+        <span class="info-value">3 Chem. du Village, 38270 Beaufort</span>
+      </div>
+      <div class="info-row">
+        <span class="info-label">Téléphone</span>
+        <span class="info-value">06 72 72 96 25</span>
+      </div>
+      <div class="info-row">
+        <span class="info-label">Email</span>
+        <span class="info-value">contact@beaufortois.fr</span>
+      </div>
+      <div class="info-row">
+        <span class="info-label">Directeur de la publication</span>
+        <span class="info-value">Amandine Vanlande</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <span class="section-num">02</span>
+    <h2>Hébergement</h2>
+    <p>Ce site est hébergé par :</p>
+    <div class="info-card">
+      <div class="info-row">
+        <span class="info-label">Hébergeur</span>
+        <span class="info-value">o2switch</span>
+      </div>
+      <div class="info-row">
+        <span class="info-label">Adresse</span>
+        <span class="info-value">Chemin des Pardiaux, 63000 Clermont-Ferrand, France</span>
+      </div>
+      <div class="info-row">
+        <span class="info-label">Téléphone</span>
+        <span class="info-value">04 44 44 60 40</span>
+      </div>
+      <div class="info-row">
+        <span class="info-label">Site web</span>
+        <span class="info-value"><a href="https://www.o2switch.fr" class="inline-link">o2switch.fr</a></span>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <span class="section-num">03</span>
+    <h2>Conception du site</h2>
+    <p>Ce site a été conçu et développé par CLab.</p>
+  </div>
+
+  <div class="section">
+    <span class="section-num">04</span>
+    <h2>Propriété intellectuelle</h2>
+    <p>
+      L'ensemble du contenu de ce site (textes, images, logo, mise en page) est la propriété
+      du Beaufortois, sauf mention contraire. Toute reproduction, représentation, modification
+      ou adaptation totale ou partielle de ce contenu, par quelque procédé que ce soit, sans
+      autorisation préalable, est interdite.
+    </p>
+  </div>
+
+  <div class="section">
+    <span class="section-num">05</span>
+    <h2>Données personnelles et réservations</h2>
+    <p>
+      Dans le cadre de la prise de réservation en ligne, les informations suivantes sont
+      collectées : nom, numéro de téléphone, nombre de personnes, date et heure souhaitées.
+    </p>
+    <ul class="legal-list">
+      <li><strong>Finalité :</strong> ces données sont utilisées exclusivement pour la gestion de votre réservation au restaurant.</li>
+      <li><strong>Conservation :</strong> les données sont conservées pour une durée n'excédant pas celle nécessaire à la gestion des réservations, et sont supprimées au-delà.</li>
+      <li><strong>Destinataires :</strong> ces informations ne sont communiquées à aucun tiers et sont uniquement accessibles par l'équipe du Beaufortois.</li>
+      <li><strong>Vos droits :</strong> conformément au Règlement Général sur la Protection des Données (RGPD), vous disposez d'un droit d'accès, de rectification, de suppression et d'opposition concernant vos données personnelles.</li>
+    </ul>
+    <p>
+      Pour exercer ces droits, vous pouvez nous contacter à l'adresse :
+      <a href="mailto:contact@beaufortois.fr" class="inline-link">contact@beaufortois.fr</a>
+    </p>
+  </div>
+
+  <div class="section">
+    <span class="section-num">06</span>
+    <h2>Cookies</h2>
+    <p>
+      Ce site n'utilise pas de cookies de suivi publicitaire. Seuls des cookies techniques,
+      nécessaires au bon fonctionnement du site, peuvent être déposés.
+    </p>
+  </div>
+
+  <div class="section">
+    <span class="section-num">07</span>
+    <h2>Limitation de responsabilité</h2>
+    <p>
+      Le Beaufortois s'efforce d'assurer au mieux de ses possibilités l'exactitude et la mise à
+      jour des informations diffusées sur ce site, mais ne peut garantir l'exactitude, la précision
+      ou l'exhaustivité des informations mises à disposition.
+    </p>
+  </div>
+
+  <p class="muted" style="margin-top:40px;">Dernière mise à jour : juin 2026</p>
+
+</div>
+
+<footer>
+  Le Beaufortois — Tous droits réservés &nbsp;|&nbsp;
+  <a href="/">Retour à l'accueil</a>
+</footer>
+
+</body>
+</html>
