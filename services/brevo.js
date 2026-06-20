@@ -88,7 +88,7 @@ function buildReservationEmail(reservation) {
               <p style="margin:0 0 12px;font-family:Georgia,'Times New Roman',serif;font-size:10px;letter-spacing:5px;text-transform:uppercase;color:rgba(201,168,76,.75);">Restaurant Traditionnel Français</p>
               <h1 class="title-main" style="margin:0;font-family:Georgia,'Times New Roman',serif;font-size:38px;font-weight:400;font-style:italic;color:#c9a84c;letter-spacing:2px;line-height:1.2;">Le Beaufortois</h1>
               <table role="presentation" width="60" align="center" cellpadding="0" cellspacing="0" style="margin:18px auto;"><tr><td height="1" bgcolor="#c9a84c" style="background-color:#c9a84c;font-size:0;line-height:0;">&nbsp;</td></tr></table>
-              <p style="margin:0;font-family:Georgia,'Times New Roman',serif;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:rgba(245,240,232,.4);">Beaufort-sur-Gervanne</p>
+              <p style="margin:0;font-family:Georgia,'Times New Roman',serif;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:rgba(245,240,232,.4);">3 Chem. du Village, 38270 Beaufort</p>
             </td>
           </tr>
 
@@ -168,7 +168,7 @@ function buildReservationEmail(reservation) {
               <p style="margin:0 0 8px;font-family:Georgia,'Times New Roman',serif;font-size:17px;font-style:italic;color:#c9a84c;">À très bientôt !</p>
               <p style="margin:0 0 18px;font-family:Georgia,'Times New Roman',serif;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:rgba(245,240,232,.35);">L'équipe du Beaufortois</p>
               <table role="presentation" width="40" align="center" cellpadding="0" cellspacing="0" style="margin:0 auto 18px;"><tr><td height="1" bgcolor="rgba(201,168,76,.3)" style="background-color:#c9a84c;opacity:.3;font-size:0;line-height:0;">&nbsp;</td></tr></table>
-              <p style="margin:0;font-family:Georgia,'Times New Roman',serif;font-size:10px;color:rgba(245,240,232,.25);">Beaufort-sur-Gervanne — Cuisine française traditionnelle</p>
+              <p style="margin:0;font-family:Georgia,'Times New Roman',serif;font-size:10px;color:rgba(245,240,232,.25);">3 Chem. du Village, 38270 Beaufort</p>
             </td>
           </tr>
 
